@@ -14,12 +14,15 @@ impl FileMutation {
         file: Upload,
         body: FileBody,
     ) -> Result<Fileresponse> {
-        let upload = file
-            .value(ctx)
-            .expect("hello.txt should be included in this project");
+        let upload = file.value(ctx).expect("Unable to read file");
+        if let Some(file_type) = &upload.content_type {
+            if file_type != "text/csv" {
+                return Err("File type not supported".to_string().into());
+            }
+        }
         let df = CsvReader::new(upload.content)
             .truncate_ragged_lines(true)
-            .infer_schema(Some(100))
+            .infer_schema(Some(10))
             .has_header(true)
             .finish()?;
         let df_head = df.clone().head(Some(body.headcount));
