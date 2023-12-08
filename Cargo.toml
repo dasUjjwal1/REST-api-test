@@ -1,0 +1,27 @@
+[package]
+name = "datamakerx"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+async-graphql = { version = "6.0.11", features = ["chrono", "uuid"] }
+async-graphql-axum = "6.0.11"
+axum = "0.6.20"
+miniserde = "0.1.34"
+polars = { version = "0.35.4", features = [
+    "lazy",
+    "temporal",
+    "describe",
+    "json",
+    "parquet",
+    "dtype-datetime",
+    "serde",
+
+] }
+serde = { version = "1.0.193", features = ["derive"] }
+serde_json = "1.0.108"
+shuttle-axum = "0.35.0"
+shuttle-runtime = "0.35.0"
+tokio = "1.28.2"
+tower-http = { version = "0.4.4", features = ["cors"] }
+tracing = "0.1.40"
